@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/registration.dart';
 import '../widgets/login.dart';
-import 'package:users_page/services/challenges.dart';
-import 'package:users_page/pages/userChallange.dart';
+import '../services/challenges.dart';
+import '../pages/userChallange.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

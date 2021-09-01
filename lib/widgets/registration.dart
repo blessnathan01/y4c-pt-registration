@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import './malefemalelist.dart';
 import '../widgets/form.dart';
-import 'package:users_page/pages/home.dart';
+import '../pages/home.dart';
 
 class Registration extends StatelessWidget {
   @override

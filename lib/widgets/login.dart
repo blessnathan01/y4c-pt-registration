@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:users_page/main.dart';
-import 'package:users_page/pages/home.dart';
-import 'package:users_page/services/routing.dart';
-import 'package:users_page/pages/admin_challenges.dart';
+import '../pages/home.dart';
+import '../pages/admin_challenges.dart';
 
 
 class Login extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:users_page/services/challenges.dart';
+import '../services/challenges.dart';
 
 
 class challengeCard extends StatelessWidget {
@@ -64,6 +64,7 @@ class challengeCard extends StatelessWidget {
                     )
                   ],
                 )
+            
               ],
             ),
           ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:users_page/pages/admin_challenges.dart';
-import 'package:users_page/pages/home.dart';
-import 'package:users_page/pages/admin_users.dart';
-import 'package:users_page/services/userCard.dart';
+import '../pages/admin_challenges.dart';
+import '../pages/home.dart';
+import '../pages/admin_users.dart';
+
 class TopBar extends StatelessWidget {
   const TopBar({
     Key? key,
@@ -12,64 +12,64 @@ class TopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Drawer(
-            child: ListView(
-              children: [
-                Container(
-                  height: 100,
-                  child: const DrawerHeader(
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                    ),
-                    child: Text(
-                      'Y4C PT Registration',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+          child: ListView(
+        children: [
+          Container(
+            height: 100,
+            child: const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blueAccent,
+              ),
+              child: Text(
+                'Y4C PT Registration',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
                 ),
-                ListTile(
-                  title
-                      : Text('Challenges',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),
-                  leading
-                      : Icon(Icons.report_problem_outlined,color: Colors.blueAccent),
-                  onTap: (){
-                    Navigator.push(context, new MaterialPageRoute(
-                        builder: (context) => AdminChallenges()
-                    )
-                    );
-                  },
-                ),
-                ListTile(
-                  title
-                      : Text('Users',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),
-                  leading
-                      : Icon(Icons.verified_user_outlined,color: Colors.blueAccent),
-                  onTap: (){
-                    Navigator.push(context, new MaterialPageRoute(
-                        builder: (context) => adminUserPage()
-                    )
-                    );
-                  },
-                ),
-                ListTile(
-                  title
-                      : Text('Log Out',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),
-                  leading
-                      : Icon(Icons.logout_outlined,color: Colors.blueAccent),
-                  onTap: (){
-                    Navigator.push(context, new MaterialPageRoute(
-                        builder: (context) => Home()
-                    )
-                    );
-                  },
-                ),
-              ],
-            )
-      ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          ListTile(
+            title: Text(
+              'Challenges',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+            ),
+            leading:
+                Icon(Icons.report_problem_outlined, color: Colors.blueAccent),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => AdminChallenges()));
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Users',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+            ),
+            leading:
+                Icon(Icons.verified_user_outlined, color: Colors.blueAccent),
+            onTap: () {
+              Navigator.push(context,
+                  new MaterialPageRoute(builder: (context) => adminUserPage()));
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Log Out',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+            ),
+            leading: Icon(Icons.logout_outlined, color: Colors.blueAccent),
+            onTap: () {
+              Navigator.push(
+                  context, new MaterialPageRoute(builder: (context) => Home()));
+            },
+          ),
+        ],
+      )),
     );
   }
 }
@@ -85,10 +85,7 @@ class TopAppBar extends StatelessWidget {
         backgroundColor: Colors.blue[600],
         title: Text(
           'Y4C PT',
-          style: TextStyle(
-              fontSize: 34.0,
-              fontWeight: FontWeight.bold),
-        )
-    );
+          style: TextStyle(fontSize: 34.0, fontWeight: FontWeight.bold),
+        ));
   }
 }

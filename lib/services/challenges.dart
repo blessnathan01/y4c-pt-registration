@@ -14,6 +14,13 @@ String dummyDescription = 'Lorem ipsum dolor sit amet, consetetur sadipscing eli
     'magna aliquyamerat, sed diam voluptua. At vero eos et accusam'
     'sed diamnonumy eirmod tempor invidunt ut labore et dolore '
     'magna aliquyamerat, sed diam voluptua. At vero eos et accusam''sed diamnonumy eirmod tempor invidunt ut labore et dolore '
+    'magna aliquyamerat, sed diam voluptua. At vero eos et accusam'
+    'sed diamnonumy eirmod tempor invidunt ut labore et dolore '
+    'magna aliquyamerat, sed diam voluptua. At vero eos et accusam'
+    'sed diamnonumy eirmod tempor invidunt ut labore et dolore '
+    'magna aliquyamerat, sed diam voluptua. At vero eos et accusam'
+    'sed diamnonumy eirmod tempor invidunt ut labore et dolore '
+    'magna aliquyamerat, sed diam voluptua. At vero eos et accusam'
         ;
 
 List<Challenges> challenges = [

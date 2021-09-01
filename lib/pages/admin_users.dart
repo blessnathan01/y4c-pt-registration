@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:users_page/widgets/TopBar.dart';
-import 'package:users_page/services/users.dart';
-import 'package:users_page/services/userCard.dart';
+import '../widgets/TopBar.dart';
+import '../services/users.dart';
+import '../services/userCard.dart';
 
 class adminUserPage extends StatelessWidget {
 

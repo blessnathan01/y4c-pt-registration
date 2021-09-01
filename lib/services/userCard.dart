@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:users_page/services/users.dart';
+import '../services/users.dart';
 
 class userCard extends StatelessWidget {
  late Users user;

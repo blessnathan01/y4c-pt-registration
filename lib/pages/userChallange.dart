@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:users_page/services/challenges.dart';
+import '../services/challenges.dart';
 
 class UserChallenge extends StatelessWidget {
  late Challenges Achallange;
