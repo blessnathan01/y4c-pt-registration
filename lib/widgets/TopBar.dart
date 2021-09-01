@@ -64,7 +64,7 @@ class TopBar extends StatelessWidget {
             ),
             leading: Icon(Icons.logout_outlined, color: Colors.blueAccent),
             onTap: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                   context, new MaterialPageRoute(builder: (context) => Home()));
             },
           ),

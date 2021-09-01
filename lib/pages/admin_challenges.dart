@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/challenges.dart';
-import '../services/challengeCard.dart';
+import '../models/challengeCard.dart';
 import '../widgets/TopBar.dart';
 
 class AdminChallenges extends StatefulWidget {

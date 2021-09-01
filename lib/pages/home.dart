@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:users_page/services/authorization.dart';
 import '../widgets/registration.dart';
 import '../widgets/login.dart';
 import '../services/challenges.dart';
@@ -24,24 +25,21 @@ class _HomeState extends State<Home> {
               bottom: TabBar(
                 indicatorWeight: 4,
                 tabs: [
-                  Text('LOG IN',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0
+                  Text(
+                    'LOG IN',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
                   ),
-                  ),
-                  Text('REGISTER',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0
-                  ),
+                  Text(
+                    'REGISTER',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
                   )
                 ],
               ),
             ),
           ),
-          body: TabBarView(
-              children: [
+          body: TabBarView(children: [
             Login(),
             Registration(),
           ]),
@@ -51,8 +49,6 @@ class _HomeState extends State<Home> {
   }
 }
 
-
-
 class userHomePage extends StatefulWidget {
   const userHomePage({Key? key}) : super(key: key);
 
@@ -61,7 +57,8 @@ class userHomePage extends StatefulWidget {
 }
 
 class _userHomePageState extends State<userHomePage> {
-
+  //Firebase authorization service
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -77,71 +74,74 @@ class _userHomePageState extends State<userHomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(1.0, 10.0, 1.0, 0.0),
+                          padding:
+                              const EdgeInsets.fromLTRB(1.0, 10.0, 1.0, 0.0),
                           child: Text(
                             'Y4C PT',
                             style: TextStyle(
-                                fontSize: 36.0,
-                                fontWeight: FontWeight.bold
-                            ),
+                                fontSize: 36.0, fontWeight: FontWeight.bold),
                           ),
                         ),
                         PopupMenuButton(
-                          offset: Offset(0,40),
+                          offset: Offset(0, 40),
                           child: Icon(
-                              Icons.account_circle_outlined,
-                             color: Colors.white,
+                            Icons.account_circle_outlined,
+                            color: Colors.white,
                             size: 40,
                           ),
-                          itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                             PopupMenuItem(
-                              height: 20,
-                              value: Text('List 1'),
-                              child: TextButton(
-                                  onPressed:  (){
-                                    Navigator.push(context, new MaterialPageRoute(
-                                        builder: (context) => Home()
-                                    )
-                                    );
-                                  },
-                                  child: Text('Log Out')
-                            )
-                            ),
+                          itemBuilder: (BuildContext context) =>
+                              <PopupMenuEntry>[
+                            PopupMenuItem(
+                                height: 20,
+                                value: Text('List 1'),
+                                child: TextButton(
+                                    onPressed: () async {
+                                      await _auth.signOut();
+                                      Navigator.of(context).pushReplacement(
+                                          new MaterialPageRoute(
+                                              builder: (context) => Home()));
+                                    },
+                                    child: Text('Log Out'))),
                           ],
                         )
-
                       ],
                     ),
-
                   ],
                 ),
-
                 bottom: TabBar(
                   isScrollable: true,
                   indicatorColor: Colors.white,
                   indicatorWeight: 5.0,
                   indicatorPadding: EdgeInsets.all(0.0),
                   tabs: [
-                    Tab(child: Text('Health', style: TextStyle(color: Colors.white, fontSize: 15.0))),
-                    Tab(child: Text('Education', style: TextStyle(color: Colors.white, fontSize: 15.0))),
-                    Tab(child: Text('Children', style: TextStyle(color: Colors.white, fontSize: 15.0))),
-                    Tab(child: Text('Youth', style: TextStyle(color: Colors.white, fontSize: 15.0))),
-                    Tab(child: Text('Women', style: TextStyle(color: Colors.white, fontSize: 15.0))),
+                    Tab(
+                        child: Text('Health',
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 15.0))),
+                    Tab(
+                        child: Text('Education',
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 15.0))),
+                    Tab(
+                        child: Text('Children',
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 15.0))),
+                    Tab(
+                        child: Text('Youth',
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 15.0))),
+                    Tab(
+                        child: Text('Women',
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 15.0))),
                   ],
                 ),
-
               ),
-
             ),
             body: TabBarView(
-                children: List<Widget>.generate(challenges.length, (index) => new UserChallenge(Achallange: challenges[index])
-                )
-            )
-        )
-    );
+                children: List<Widget>.generate(
+                    challenges.length,
+                    (index) =>
+                        new UserChallenge(Achallange: challenges[index])))));
   }
 }
-
-
-
-

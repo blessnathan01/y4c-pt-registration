@@ -1,10 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import '../pages/home.dart';
 
-
-
-
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -12,14 +14,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-          fontFamily:'Raleway'
-      ),
+      theme: ThemeData(fontFamily: 'Raleway'),
       home: Home(),
-      routes: {
-        '/a': (context) => userHomePage()
-      },
+      routes: {'/a': (context) => userHomePage()},
     );
   }
 }
-

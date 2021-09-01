@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:users_page/services/authorization.dart';
+import 'package:users_page/widgets/loading.dart';
 import '../pages/home.dart';
 import '../pages/admin_challenges.dart';
-
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -10,134 +11,171 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
-
-
 class _LoginState extends State<Login> {
-  final logInController = TextEditingController();
+  final AuthService _auth = AuthService();
+  //global key for Register Key
+  final _formKey = GlobalKey<FormState>();
+  String email = '';
+  String password = '';
+  bool loading = false;
+  String error = '';
 
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    logInController.dispose();
-    super.dispose();
-  }
-  late String userName;
-  late String pass;
+  bool admin = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-          padding: EdgeInsets.only(top: 50),
-          height: 600,
-          child: SingleChildScrollView(
-            child: Center(
-              child:
-              Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Container(
-                    child: Image.asset(
-                      'assets/picture1.png',
-                      width: 150,
-                      height: 150,
-                    )),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    'PT LOG IN',
-                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.w900),
-                  ),
-                ),
-                Container(
-                  width: 300,
-                  padding: EdgeInsets.only(top: 20),
-                  child: TextFormField(
-                    controller: logInController,
-                    onFieldSubmitted: (String? value){ userName = value as String;},
-                    decoration: InputDecoration(
-                        border: UnderlineInputBorder(), labelText: 'Username: '),
-                  ),
-                ),
-                Container(
-                  width: 300,
-                  padding: EdgeInsets.only(top: 20, bottom: 60),
-                  child: TextFormField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        border: UnderlineInputBorder(), labelText: 'Password: '),
-                  ),
-                ),
-                FlatButton(
-                    color: Colors.blue[600],
-                    onPressed: () {
-                      if(logInController.text == 'admin'){
-                      Navigator.pushReplacement(context, new MaterialPageRoute(
-                          builder: (context) => AdminChallenges())
-                      );
-                      }else if (logInController.text == 'user'){
-                        Navigator.pushReplacement(context, new MaterialPageRoute(
-                            builder: (context) => userHomePage())
-                        );
-                      }
-                      else{
-                        Navigator.push(context, new MaterialPageRoute(
-                            builder: (context) => Scaffold(
-                              body: Center(
-                                child: Text('Error')
-                              )
-                            ))
-                        );
-                      }
+    return loading
+        ? Loading()
+        : Scaffold(
+            body: Container(
+                padding: EdgeInsets.only(top: 50),
+                height: 600,
+                child: SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                              child: Image.asset(
+                            'assets/picture1.png',
+                            width: 150,
+                            height: 150,
+                          )),
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                              'PT LOG IN',
+                              style: TextStyle(
+                                  fontSize: 21, fontWeight: FontWeight.w900),
+                            ),
+                          ),
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 300,
+                                  padding: EdgeInsets.only(top: 20),
+                                  child: TextFormField(
+                                    validator: (val) => val!.isEmpty
+                                        ? 'Enter your Email'
+                                        : null,
+                                    onChanged: (val) =>
+                                        setState(() => email = val),
+                                    decoration: InputDecoration(
+                                        border: UnderlineInputBorder(),
+                                        labelText: 'Email '),
+                                  ),
+                                ),
+                                Container(
+                                  width: 300,
+                                  padding: EdgeInsets.only(top: 20, bottom: 60),
+                                  child: TextFormField(
+                                    validator: (val) => val!.length < 6
+                                        ? 'Password should be more than 6 characters long'
+                                        : null,
+                                    onChanged: (val) =>
+                                        setState(() => password = val),
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                        border: UnderlineInputBorder(),
+                                        labelText: 'Password: '),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
 
-                    },
-                    child: Container(
-                      padding:
-                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 120),
-                      child: Text('LOG IN',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w900)),
-                    )),
-                // Container(
-                //   padding: EdgeInsets.only(
-                //     left: 120,
-                //     top: 20,
-                //   ),
-                //   child: Row(
-                //     children: [
-                //       Text('Not a member?'),
-                //       FlatButton(
-                //         onPressed: () {},
-                //         child: Container(
-                //           padding: EdgeInsets.symmetric(horizontal: 0),
-                //           child: Text(
-                //             'Create Account',
-                //             style: TextStyle(fontWeight: FontWeight.bold),
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // Container(
-                //   padding: EdgeInsets.only(left: 170, top: 90),
-                //   child: Row(
-                //     children: [
-                //       Icon(
-                //         Icons.copyright_outlined,
-                //         size: 20,
-                //       ),
-                //       Text(
-                //         '2021',
-                //         style: TextStyle(fontWeight: FontWeight.bold),
-                //       )
-                //     ],
-                //   ),
-                // )
-              ]),
-            ),
-          )),
-    );
+                          FlatButton(
+                              color: Colors.blue[600],
+                              onPressed: () async {
+                                if (email.trim() == 'admin@y4c.com') {
+                                  setState(() => admin = true);
+                                  Navigator.pushReplacement(
+                                      context,
+                                      new MaterialPageRoute(
+                                          builder: (context) =>
+                                              AdminChallenges()));
+                                } else {
+                                  if (_formKey.currentState!.validate()) {
+                                    setState(() => loading = true);
+                                    print(email);
+                                    print(password);
+                                    dynamic result =
+                                        await _auth.signInWithEmailAndPassword(
+                                            email, password);
+                                    print('valid');
+                                    if (result == null) {
+                                      setState(() {
+                                        error =
+                                            'Could not sign in. Please try again';
+                                        loading = false;
+                                      });
+                                    } else {
+                                      print('$email Signed In Successfully!');
+                                      Navigator.pushReplacement(
+                                          context,
+                                          new MaterialPageRoute(
+                                              builder: (context) =>
+                                                  userHomePage()));
+                                    }
+                                  }
+                                }
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 15.0, horizontal: 120),
+                                child: Text('LOG IN',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w900)),
+                              )),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            error,
+                            style: TextStyle(color: Colors.red, fontSize: 14),
+                          )
+                          // Container(
+                          //   padding: EdgeInsets.only(
+                          //     left: 120,
+                          //     top: 20,
+                          //   ),
+                          //   child: Row(
+                          //     children: [
+                          //       Text('Not a member?'),
+                          //       FlatButton(
+                          //         onPressed: () {},
+                          //         child: Container(
+                          //           padding: EdgeInsets.symmetric(horizontal: 0),
+                          //           child: Text(
+                          //             'Create Account',
+                          //             style: TextStyle(fontWeight: FontWeight.bold),
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
+                          // Container(
+                          //   padding: EdgeInsets.only(left: 170, top: 90),
+                          //   child: Row(
+                          //     children: [
+                          //       Icon(
+                          //         Icons.copyright_outlined,
+                          //         size: 20,
+                          //       ),
+                          //       Text(
+                          //         '2021',
+                          //         style: TextStyle(fontWeight: FontWeight.bold),
+                          //       )
+                          //     ],
+                          //   ),
+                          // )
+                        ]),
+                  ),
+                )),
+          );
   }
 }
-
-

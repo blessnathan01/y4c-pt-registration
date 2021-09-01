@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1087149368708",
+    "project_id": "y4c-pt",
+    "storage_bucket": "y4c-pt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087149368708:android:98393e180d53d095e6a9d1",
+        "android_client_info": {
+          "package_name": "com.example.y4c"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087149368708-h90f7jj1kd2mdt5qi6hfbt5gh6u1ecr2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcRasv40Pf_SRwjfpE2Xr3uH7FsZ68tjE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087149368708-h90f7jj1kd2mdt5qi6hfbt5gh6u1ecr2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

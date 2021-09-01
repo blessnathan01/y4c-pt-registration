@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class Form1 extends StatefulWidget {
-  final formkey = GlobalKey<FormState>();
+  final formkey = GlobalKey<Form1State>();
 
   @override
-  FormState createState() => FormState(formkey);
+  Form1State createState() => Form1State(formkey);
 }
 
-class FormState extends State<Form1> {
+class Form1State extends State<Form1> {
   var email1 = TextEditingController();
   var formkey;
-  FormState(formkey);
+  Form1State(formkey);
   @override
   Widget build(BuildContext context) {
     return Form(
