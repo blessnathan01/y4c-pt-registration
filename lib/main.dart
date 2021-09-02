@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:overlay_support/overlay_support.dart';
 import '../pages/home.dart';
 
 void main() async {
@@ -13,10 +14,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(fontFamily: 'Raleway'),
-      home: Home(),
-      routes: {'/a': (context) => userHomePage()},
+    return OverlaySupport.global(
+      child: MaterialApp(
+        theme: ThemeData(fontFamily: 'Raleway'),
+        home: Home(),
+        routes: {'/a': (context) => userHomePage()},
+      ),
     );
   }
 }

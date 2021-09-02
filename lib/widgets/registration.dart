@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:overlay_support/overlay_support.dart';
 import '../services/authorization.dart';
 import '../widgets/loading.dart';
 import './malefemalelist.dart';
@@ -147,8 +148,9 @@ class _RegistrationState extends State<Registration> {
                             print(email);
                             print(password);
                             print(regNo);
-                            dynamic result = await _auth
-                                .registerWithEmailAndPassword(email, password);
+                            dynamic result =
+                                await _auth.registerWithEmailAndPassword(
+                                    email.trim(), password.trim());
 
                             if (result == null) {
                               setState(() {
@@ -157,6 +159,13 @@ class _RegistrationState extends State<Registration> {
                               });
                             } else {
                               print('$fName $email Registered Successfully!');
+                              setState(() => showSimpleNotification(
+                                  Text(
+                                    'You have successfully registered in as $email',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 16),
+                                  ),
+                                  background: Colors.blue[300]));
                               Navigator.pushReplacement(
                                   context,
                                   new MaterialPageRoute(
