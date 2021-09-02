@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:users_page/services/authorization.dart';
-import 'package:users_page/widgets/loading.dart';
+import '../services/authorization.dart';
+import '../widgets/loading.dart';
 import './malefemalelist.dart';
 import '../widgets/form.dart';
 import '../pages/home.dart';

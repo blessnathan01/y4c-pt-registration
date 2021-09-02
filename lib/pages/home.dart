@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:users_page/services/authorization.dart';
+import '../services/authorization.dart';
 import '../widgets/registration.dart';
 import '../widgets/login.dart';
 import '../services/challenges.dart';
