@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:users_page/services/authorization.dart';
-import 'package:users_page/widgets/loading.dart';
+import '../services/authorization.dart';
+import '../widgets/loading.dart';
 import '../pages/home.dart';
 import '../pages/admin_challenges.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -102,8 +103,8 @@ class _LoginState extends State<Login> {
                                     print(password);
                                     dynamic result =
                                         await _auth.signInWithEmailAndPassword(
-                                            email, password);
-                                    print('valid');
+                                            email.trim(), password.trim());
+                                    print(result);
                                     if (result == null) {
                                       setState(() {
                                         error =
@@ -112,6 +113,14 @@ class _LoginState extends State<Login> {
                                       });
                                     } else {
                                       print('$email Signed In Successfully!');
+                                      setState(() => showSimpleNotification(
+                                          Text(
+                                            'You have successfully logged in as $email',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16),
+                                          ),
+                                          background: Colors.blue[600]));
                                       Navigator.pushReplacement(
                                           context,
                                           new MaterialPageRoute(
