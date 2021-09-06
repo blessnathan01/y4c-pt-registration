@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../services/authorization.dart';
-import '../widgets/registration.dart';
 import '../widgets/login.dart';
 import '../services/challenges.dart';
 import '../pages/userChallange.dart';
@@ -16,34 +15,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(50.0),
-            child: AppBar(
-              bottom: TabBar(
-                indicatorWeight: 4,
-                tabs: [
-                  Text(
-                    'LOG IN',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
-                  ),
-                  Text(
-                    'REGISTER',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
-                  )
-                ],
-              ),
-            ),
-          ),
-          body: TabBarView(children: [
-            Login(),
-            Registration(),
-          ]),
-        ),
+      home: Scaffold(
+        body: Login(),
       ),
     );
   }

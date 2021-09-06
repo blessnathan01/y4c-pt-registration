@@ -17,24 +17,51 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  Future LoginMySql() async {
+  Future LoginMySql(BuildContext context) async {
     // var url = "http://45.56.115.113/registration/api/pt/checkLogin";
     try {
       Response response = await post(
           Uri.parse('http://45.56.115.113/registration/api/pt/checkLogin'),
           body: {
-            "reg_no": regno,
+            "reg_no": regno.toString(),
             "password": password,
           });
 
-      var data = jsonDecode(response.body);
+      data = jsonDecode(response.body);
       print(data);
-      username = data['student_details']['first_name'] +
-          " " +
-          data['student_details']['last_name'];
-      accepted = true;
+
+      if (data['status'] == 'success') {
+        setState(() {
+          loading = false;
+          accepted = false;
+        });
+
+        username = data['student_details']['first_name'] +
+            ' ' +
+            data['student_details']['last_name'];
+
+        showSimpleNotification(
+            Text(
+              'You have successfully logged in as $username',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            background: Colors.blue[600]);
+
+        Navigator.pushReplacement(context,
+            new MaterialPageRoute(builder: (context) => userHomePage()));
+      } else {
+        setState(() {
+          accepted = true;
+          loading = false;
+          error = 'Enter correct Reg No & password';
+        });
+      }
     } catch (e) {
       print(e.toString());
+      setState(() {
+        loading = false;
+        error = 'Enter correct Reg No & password';
+      });
     }
   }
 
@@ -47,6 +74,7 @@ class _LoginState extends State<Login> {
   String error = '';
   bool accepted = false;
   var username = '';
+  var data;
 
   bool admin = false;
   @override
@@ -62,6 +90,9 @@ class _LoginState extends State<Login> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          SizedBox(
+                            height: 70,
+                          ),
                           Container(
                               child: Image.asset(
                             'assets/picture1.png',
@@ -85,7 +116,7 @@ class _LoginState extends State<Login> {
                                   padding: EdgeInsets.only(top: 20),
                                   child: TextFormField(
                                     validator: (val) =>
-                                        val!.isEmpty && val.length < 11
+                                        val!.isEmpty || val.length < 11
                                             ? 'Enter your Reg.No'
                                             : null,
                                     onChanged: (val) =>
@@ -99,6 +130,8 @@ class _LoginState extends State<Login> {
                                   width: 300,
                                   padding: EdgeInsets.only(top: 20, bottom: 60),
                                   child: TextFormField(
+                                    validator: (val) =>
+                                        val!.isEmpty ? '*Password' : null,
                                     onChanged: (val) =>
                                         setState(() => password = val),
                                     obscureText: true,
@@ -118,30 +151,18 @@ class _LoginState extends State<Login> {
                                 setState(() => loading = true);
                                 print(regno);
                                 print(password);
-                                LoginMySql();
+                                accepted = false;
+                              } else {
+                                accepted = true;
+                              }
 
-                                if (accepted) {
-                                  error = 'ERROR OCCURED';
+                              if (accepted) {
+                                setState(() {
+                                  error = 'Enter correct Reg No & Password';
                                   loading = false;
-                                } else {
-                                  setState(() {
-                                    loading = false;
-                                    showSimpleNotification(
-                                        Text(
-                                          'You have successfully logged in as $username',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16),
-                                        ),
-                                        background: Colors.blue[600]);
-                                  });
-
-                                  Navigator.pushReplacement(
-                                      context,
-                                      new MaterialPageRoute(
-                                          builder: (context) =>
-                                              userHomePage()));
-                                }
+                                });
+                              } else {
+                                LoginMySql(context);
                               }
                             },
                             child: Container(
