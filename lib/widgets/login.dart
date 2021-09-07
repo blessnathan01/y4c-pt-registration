@@ -27,7 +27,6 @@ class _LoginState extends State<Login> {
     });
   }
 
-
   void notRegistered() {
     setState(() {
       loading = false;
@@ -35,14 +34,11 @@ class _LoginState extends State<Login> {
     });
   }
 
-
-
   void conError() {
     setState(() {
       loading = false;
       error = 'Failed to Log In.Please try again.';
     });
-
   }
 
   //global key for Register Key
@@ -56,6 +52,23 @@ class _LoginState extends State<Login> {
   var controller = new MaskedTextController(mask: '0000-00-00000');
   bool admin = false;
   bool _isHidden = true;
+  var iconn = Icon(
+    Icons.visibility,
+    size: 20,
+  );
+  void iconchooser() {
+    if (!_isHidden) {
+      iconn = Icon(
+        Icons.visibility_off,
+        size: 20,
+      );
+    } else {
+      iconn = Icon(
+        Icons.visibility,
+        size: 20,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,12 +128,10 @@ class _LoginState extends State<Login> {
                                     obscureText: _isHidden,
                                     decoration: InputDecoration(
                                         suffix: IconButton(
-                                          icon: Icon(
-                                            Icons.visibility,
-                                            size: 20,
-                                          ),
+                                          icon: iconn,
                                           onPressed: () => setState(() {
                                             _isHidden = !_isHidden;
+                                            iconchooser();
                                           }),
                                         ),
                                         border: UnderlineInputBorder(),
