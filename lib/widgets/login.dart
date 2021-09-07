@@ -8,6 +8,7 @@ import '../pages/admin_challenges.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:http/http.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -75,7 +76,7 @@ class _LoginState extends State<Login> {
   bool accepted = false;
   var username = '';
   var data;
-
+  var controller = new MaskedTextController(mask: '0000-00-00000');
   bool admin = false;
   @override
   Widget build(BuildContext context) {
@@ -115,6 +116,7 @@ class _LoginState extends State<Login> {
                                   width: 300,
                                   padding: EdgeInsets.only(top: 20),
                                   child: TextFormField(
+                                    controller: controller,
                                     validator: (val) =>
                                         val!.isEmpty || val.length < 11
                                             ? 'Enter your Reg.No'
