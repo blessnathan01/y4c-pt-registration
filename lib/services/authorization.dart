@@ -9,14 +9,15 @@ class AuthService {
 
   AppUser? _userFromFirebaseUser(User? user) {
     // ignore: unnecessary_null_comparison
-    return user != null
-        ? AppUser(
-            Uid: user.uid,
-            Fname: user.displayName,
-            Lname: user.displayName,
-            email: user.email,
-            Uname: user.displayName)
-        : null;
+    // return user != null
+    //     ? AppUser(
+    //         Uid: user.uid,
+    //         Fname: user.displayName,
+    //         Lname: user.displayName,
+    //         email: user.email,
+    //         regNo: user.displayName)
+    //     : null;
+    return null;
   }
 
   //auth change user stream

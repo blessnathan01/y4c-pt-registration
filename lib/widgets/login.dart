@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:users_page/services/users.dart';
 import '../services/authorization.dart';
 import '../widgets/loading.dart';
 import '../pages/home.dart';
@@ -89,6 +90,8 @@ class _LoginState extends State<Login> {
                           FlatButton(
                               color: Colors.blue[600],
                               onPressed: () async {
+                                dynamic api = await getUserData();
+                                print(api);
                                 if (email.trim() == 'admin@y4c.com') {
                                   setState(() => admin = true);
                                   Navigator.pushReplacement(
@@ -126,6 +129,7 @@ class _LoginState extends State<Login> {
                                           new MaterialPageRoute(
                                               builder: (context) =>
                                                   userHomePage()));
+                                                  
                                     }
                                   }
                                 }
