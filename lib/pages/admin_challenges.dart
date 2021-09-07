@@ -38,7 +38,7 @@ class _AdminChallengesState extends State<AdminChallenges> {
                 Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                     child: ListView.builder(
-                        scrollDirection: Axis.vertical,
+                        scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: challenges.length,
