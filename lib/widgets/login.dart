@@ -32,7 +32,6 @@ class _LoginState extends State<Login> {
 
       if (data['status'] == 'success') {
         setState(() {
-          loading = false;
           accepted = false;
         });
 
@@ -49,6 +48,9 @@ class _LoginState extends State<Login> {
 
         Navigator.pushReplacement(context,
             new MaterialPageRoute(builder: (context) => userHomePage()));
+        setState(() {
+          loading = false;
+        });
       } else {
         setState(() {
           accepted = true;
