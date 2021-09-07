@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:users_page/services/ApiIntegration.dart';
+import 'package:users_page/services/challenges.dart';
 import '../widgets/TopBar.dart';
 import '../services/users.dart';
 import '../models/userCard.dart';
 
-class adminUserPage extends StatelessWidget {
+class adminUserPage extends StatefulWidget {
+  @override
+  _adminUserPageState createState() => _adminUserPageState();
+}
+
+class _adminUserPageState extends State<adminUserPage> {
+  Api userData = Api();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +41,7 @@ class adminUserPage extends StatelessWidget {
                     Container(
                       child: Column(
                         children: [
-                          Text("40",
+                          Text(Api.applicants,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 30)),
                           SizedBox(
@@ -51,7 +60,7 @@ class adminUserPage extends StatelessWidget {
                     Container(
                       child: Column(
                         children: [
-                          Text("5",
+                          Text(challenges.length.toString(),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 30)),
                           SizedBox(
@@ -90,9 +99,9 @@ class adminUserPage extends StatelessWidget {
                             scrollDirection: Axis.vertical,
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
-                            itemCount: users.length,
+                            itemCount: Api.users.length,
                             itemBuilder: (context, index) {
-                              return userCard(user: users[index]);
+                              return userCard(user: Api.users[index]);
                             })
                       ],
                     ),

@@ -70,7 +70,7 @@ class _userHomePageState extends State<userHomePage> {
                                     onPressed: () async {
                                       Navigator.of(context).pushReplacement(
                                           new MaterialPageRoute(
-                                              builder: (context) => Home()));
+                                              builder: (context) => Login()));
                                     },
                                     child: Text('Log Out'))),
                           ],
@@ -114,5 +114,11 @@ class _userHomePageState extends State<userHomePage> {
                     challenges.length,
                     (index) =>
                         new UserChallenge(Achallange: challenges[index])))));
+  }
+
+  @override
+  void dispose() {
+    print("Disposing second route");
+    super.dispose();
   }
 }

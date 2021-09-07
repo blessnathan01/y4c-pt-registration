@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:users_page/services/ApiIntegration.dart';
+import 'package:users_page/services/users.dart';
+import 'package:users_page/widgets/login.dart';
 import '../pages/admin_challenges.dart';
 import '../pages/home.dart';
 import '../pages/admin_users.dart';
 
 class TopBar extends StatelessWidget {
-  const TopBar({
+  TopBar({
     Key? key,
   }) : super(key: key);
-
+  Api userData = Api();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,7 +55,8 @@ class TopBar extends StatelessWidget {
             ),
             leading:
                 Icon(Icons.verified_user_outlined, color: Colors.blueAccent),
-            onTap: () {
+            onTap: () async {
+              // await userData.getAllUsers();
               Navigator.push(context,
                   new MaterialPageRoute(builder: (context) => adminUserPage()));
             },
@@ -64,8 +68,8 @@ class TopBar extends StatelessWidget {
             ),
             leading: Icon(Icons.logout_outlined, color: Colors.blueAccent),
             onTap: () {
-              Navigator.pushReplacement(
-                  context, new MaterialPageRoute(builder: (context) => Home()));
+              Navigator.pushReplacement(context,
+                  new MaterialPageRoute(builder: (context) => Login()));
             },
           ),
         ],

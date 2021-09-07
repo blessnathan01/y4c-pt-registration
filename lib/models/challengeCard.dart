@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/challenges.dart';
 
-
 class challengeCard extends StatelessWidget {
   late Challenges challenge;
 
@@ -12,59 +11,47 @@ class challengeCard extends StatelessWidget {
     return Container(
       child: InkWell(
         splashColor: Colors.blueAccent,
-        onTap: (){print('Clicked');},
+        onTap: () {
+          print('Clicked');
+        },
         child: Card(
           color: Colors.white,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(15, 15.0,15,20),
+            padding: const EdgeInsets.fromLTRB(15, 15.0, 15, 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  challenge.challengeName,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18
-                  )
-                ),
-
+                Text(challenge.challengeName,
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                 SizedBox(height: 10),
-                Text(
-                    'Category: ${challenge.challengeCategory}',
+                Text('Category: ${challenge.challengeCategory}',
                     style: TextStyle(
                         color: Colors.grey[500],
                         fontSize: 14,
-                        fontWeight: FontWeight.w900
-                    )
-                ),
+                        fontWeight: FontWeight.w900)),
                 SizedBox(height: 10),
                 Text(
                   challenge.challengeDescription,
-                  style: TextStyle(
-                    fontSize: 13,
-                  ),
+                  style: TextStyle(fontSize: 13, letterSpacing: .3),
                 ),
-                SizedBox(height: 15),
+                SizedBox(height: 25),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                   IconButton(
-                     icon: Icon(Icons.edit),
-                   iconSize: 25,
-                   color: Colors.blueAccent,
-                     splashColor: Colors.blueAccent,
-                     onPressed: (){},
-                   ),
-                    IconButton(
-                      icon: Icon(Icons.delete),
-                      iconSize: 25,
-                      color: Colors.redAccent,
-                      splashColor: Colors.redAccent,
-                      onPressed: (){},
-                    )
+                    CircleAvatar(
+                        backgroundImage: AssetImage('assets/user.png'),
+                        radius: 20),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text('Stakeholders',
+                        style: TextStyle(
+                            color: Colors.grey[500],
+                            fontSize: 16,
+                            fontWeight: FontWeight.w900))
                   ],
                 )
-            
               ],
             ),
           ),
@@ -73,4 +60,3 @@ class challengeCard extends StatelessWidget {
     );
   }
 }
-

@@ -22,23 +22,29 @@ class _LoginState extends State<Login> {
   Auth login = Auth();
 
   void logInSuccess() {
-    setState(() {
-      loading = false;
-    });
+    if (mounted) {
+      setState(() {
+        loading = false;
+      });
+    }
   }
 
   void notRegistered() {
-    setState(() {
-      loading = false;
-      error = 'Enter correct Reg No & password';
-    });
+    if (mounted) {
+      setState(() {
+        loading = false;
+        error = 'Enter correct Reg No & password';
+      });
+    }
   }
 
   void conError() {
-    setState(() {
-      loading = false;
-      error = 'Failed to Log In.Please try again.';
-    });
+    if (mounted) {
+      setState(() {
+        // loading = false;
+        error = 'Failed to Log In.Please try again.';
+      });
+    }
   }
 
   //global key for Register Key

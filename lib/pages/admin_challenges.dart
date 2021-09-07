@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:users_page/services/users.dart';
 import '../services/challenges.dart';
 import '../models/challengeCard.dart';
 import '../widgets/TopBar.dart';
@@ -11,67 +12,13 @@ class AdminChallenges extends StatefulWidget {
 }
 
 class _AdminChallengesState extends State<AdminChallenges> {
-  void addchallenge(BuildContext ctx) {
-    showModalBottomSheet(
-        context: ctx,
-        builder: (_) {
-          return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                    padding: EdgeInsets.all(15),
-                    child: Text(
-                      'ADD CHALLENGE',
-                      style:
-                          TextStyle(fontSize: 21, fontWeight: FontWeight.w900),
-                    )),
-                Container(
-                  width: 320,
-                  padding: EdgeInsets.all(10),
-                  child: TextFormField(
-                    decoration: InputDecoration(labelText: 'Name'),
-                  ),
-                ),
-                Container(
-                  width: 320,
-                  padding: EdgeInsets.all(10),
-                  child: TextFormField(
-                    decoration: InputDecoration(labelText: 'Category'),
-                  ),
-                ),
-                Container(
-                  width: 320,
-                  padding: EdgeInsets.all(10),
-                  child: TextFormField(
-                    decoration: InputDecoration(labelText: 'Description'),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 15, top: 40),
-                  child: RaisedButton(
-                      color: Colors.blue[600],
-                      onPressed: () {},
-                      child: Container(
-                          width: 250,
-                          height: 50,
-                          child: Center(
-                              child: Text(
-                            'SUBMIT',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w900,
-                                fontSize: 16,
-                                color: Colors.white),
-                          )))),
-                ),
-              ],
-            ),
-          );
-        });
+  void test() {
+    // AppUser.getAllUsers();
   }
 
   @override
   Widget build(BuildContext context) {
+    test();
     return Container(
       child: Scaffold(
         appBar: PreferredSize(
@@ -102,12 +49,13 @@ class _AdminChallengesState extends State<AdminChallenges> {
             ),
           ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () => addchallenge(context),
-        ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    print("Disposing second route");
+    super.dispose();
   }
 }
