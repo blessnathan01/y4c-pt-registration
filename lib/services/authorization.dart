@@ -1,79 +1,49 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import '../services/users.dart';
-// import 'package:firebase_flutter/services/database.dart';
+import 'dart:convert';
 
-class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:overlay_support/overlay_support.dart';
+import 'package:users_page/pages/home.dart';
 
-  //Create user object based on firebase user
+class Auth {
+  var username = '';
+  var data;
 
-  AppUser? _userFromFirebaseUser(User? user) {
-    // ignore: unnecessary_null_comparison
-    // return user != null
-    //     ? AppUser(
-    //         Uid: user.uid,
-    //         Fname: user.displayName,
-    //         Lname: user.displayName,
-    //         email: user.email,
-    //         regNo: user.displayName)
-    //     : null;
-    return null;
-  }
-
-  //auth change user stream
-  Stream<AppUser?> get userStream {
-    return _auth.authStateChanges().map(_userFromFirebaseUser);
-  }
-
-  //sign in anon
-  Future signInAnon() async {
+  void LoginMySql(BuildContext context, String regNo, String password,
+      Function logInSuccess, Function notRegistered, Function conError) async {
+    // var url = "http://45.56.115.113/registration/api/pt/checkLogin";
     try {
-      UserCredential result = await _auth.signInAnonymously();
-      User? _user = result.user;
-      return _userFromFirebaseUser(_user);
+      Response response = await post(
+          Uri.parse('http://45.56.115.113/registration/api/pt/checkLogin'),
+          body: {
+            "reg_no": regNo,
+            "password": password,
+          });
+
+      data = jsonDecode(response.body);
+      print(data);
+
+      if (data['status'] == 'success') {
+        username = data['student_details']['first_name'] +
+            ' ' +
+            data['student_details']['last_name'];
+
+        showSimpleNotification(
+            Text(
+              'You have successfully logged in as $username',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            background: Colors.blue[600]);
+
+        await Navigator.pushReplacement(context,
+            new MaterialPageRoute(builder: (context) => userHomePage()));
+        logInSuccess();
+      } else {
+        notRegistered();
+      }
     } catch (e) {
       print(e.toString());
-      return null;
-    }
-  }
-
-  //sign in with email and password
-  Future signInWithEmailAndPassword(String email, String password) async {
-    try {
-      UserCredential? result = await _auth.signInWithEmailAndPassword(
-          email: email.trim(), password: password.trim());
-      User? user = result.user;
-      return _userFromFirebaseUser(user);
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
-
-  //register with email and password
-  Future registerWithEmailAndPassword(String email, String password) async {
-    try {
-      UserCredential? result = await _auth.createUserWithEmailAndPassword(
-          email: email.trim(), password: password.trim());
-      User? user = result.user;
-
-      //create a new document for the user
-      //  await databaseService(uid: user!.uid)
-      //      .updateUserData('0', 'Lorem Ipsum', 100);
-      return _userFromFirebaseUser(user);
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
-
-  //sign out
-  Future signOut() async {
-    try {
-      return await _auth.signOut();
-    } catch (e) {
-      print(e.toString());
-      return null;
+      conError();
     }
   }
 }

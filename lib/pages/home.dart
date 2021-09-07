@@ -31,7 +31,6 @@ class userHomePage extends StatefulWidget {
 
 class _userHomePageState extends State<userHomePage> {
   //Firebase authorization service
-  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -69,7 +68,6 @@ class _userHomePageState extends State<userHomePage> {
                                 value: Text('List 1'),
                                 child: TextButton(
                                     onPressed: () async {
-                                      await _auth.signOut();
                                       Navigator.of(context).pushReplacement(
                                           new MaterialPageRoute(
                                               builder: (context) => Home()));

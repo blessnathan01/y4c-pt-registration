@@ -18,65 +18,34 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  Future LoginMySql(BuildContext context) async {
-    // var url = "http://45.56.115.113/registration/api/pt/checkLogin";
-    try {
-      Response response = await post(
-          Uri.parse('http://45.56.115.113/registration/api/pt/checkLogin'),
-          body: {
-            "reg_no": regno.toString(),
-            "password": password,
-          });
+  Auth login = Auth();
 
-      data = jsonDecode(response.body);
-      print(data);
-
-      if (data['status'] == 'success') {
-        setState(() {
-          loading = false;
-          accepted = false;
-        });
-
-        username = data['student_details']['first_name'] +
-            ' ' +
-            data['student_details']['last_name'];
-
-        showSimpleNotification(
-            Text(
-              'You have successfully logged in as $username',
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-            background: Colors.blue[600]);
-
-        Navigator.pushReplacement(context,
-            new MaterialPageRoute(builder: (context) => userHomePage()));
-      } else {
-        setState(() {
-          accepted = true;
-          loading = false;
-          error = 'Enter correct Reg No & password';
-        });
-      }
-    } catch (e) {
-      print(e.toString());
-      setState(() {
-        loading = false;
-        error = 'Enter correct Reg No & password';
-      });
-    }
+  void logInSuccess() {
+    setState(() {
+      loading = false;
+    });
   }
 
-  final AuthService _auth = AuthService();
+  void notRegistered() {
+    setState(() {
+      loading = false;
+      error = 'Enter correct Reg No & password';
+    });
+  }
+
+  void conError() {
+    setState(() {
+      loading = false;
+      error = 'Failed to Log In.Please try again.';
+    });
+  }
+
   //global key for Register Key
   final _formKey = GlobalKey<FormState>();
   String regno = '';
   String password = '';
   bool loading = false;
   String error = '';
-  bool accepted = false;
-  var username = '';
-  var data;
-
   bool admin = false;
   @override
   Widget build(BuildContext context) {
@@ -89,11 +58,8 @@ class _LoginState extends State<Login> {
                 child: SingleChildScrollView(
                   child: Center(
                     child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          SizedBox(
-                            height: 70,
-                          ),
                           Container(
                               child: Image.asset(
                             'assets/picture1.png',
@@ -152,18 +118,12 @@ class _LoginState extends State<Login> {
                                 setState(() => loading = true);
                                 print(regno);
                                 print(password);
-                                accepted = false;
+                                login.LoginMySql(context, regno, password,
+                                    logInSuccess, notRegistered, conError);
                               } else {
-                                accepted = true;
-                              }
-
-                              if (accepted) {
                                 setState(() {
-                                  error = 'Enter correct Reg No & Password';
                                   loading = false;
                                 });
-                              } else {
-                                LoginMySql(context);
                               }
                             },
                             child: Container(
