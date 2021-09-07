@@ -54,7 +54,7 @@ class _LoginState extends State<Login> {
   bool _isHidden = true;
   var iconn = Icon(
     Icons.visibility,
-    size: 20,
+    size: 19,
   );
   void iconchooser() {
     if (!_isHidden) {
