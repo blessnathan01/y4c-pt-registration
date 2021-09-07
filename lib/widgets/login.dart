@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:users_page/services/users.dart';
 import '../services/authorization.dart';
 import '../widgets/loading.dart';
 import '../pages/home.dart';
@@ -8,6 +9,7 @@ import '../pages/admin_challenges.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:http/http.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -17,67 +19,41 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  Future LoginMySql(BuildContext context) async {
-    // var url = "http://45.56.115.113/registration/api/pt/checkLogin";
-    try {
-      Response response = await post(
-          Uri.parse('http://45.56.115.113/registration/api/pt/checkLogin'),
-          body: {
-            "reg_no": regno.toString(),
-            "password": password,
-          });
+  Auth login = Auth();
 
-      data = jsonDecode(response.body);
-      print(data);
-
-      if (data['status'] == 'success') {
-        setState(() {
-          accepted = false;
-        });
-
-        username = data['student_details']['first_name'] +
-            ' ' +
-            data['student_details']['last_name'];
-
-        showSimpleNotification(
-            Text(
-              'You have successfully logged in as $username',
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-            background: Colors.blue[600]);
-
-        Navigator.pushReplacement(context,
-            new MaterialPageRoute(builder: (context) => userHomePage()));
-        setState(() {
-          loading = false;
-        });
-      } else {
-        setState(() {
-          accepted = true;
-          loading = false;
-          error = 'Enter correct Reg No & password';
-        });
-      }
-    } catch (e) {
-      print(e.toString());
-      setState(() {
-        loading = false;
-        error = 'Enter correct Reg No & password';
-      });
-    }
+  void logInSuccess() {
+    setState(() {
+      loading = false;
+    });
   }
 
-  final AuthService _auth = AuthService();
+
+  void notRegistered() {
+    setState(() {
+      loading = false;
+      error = 'Enter correct Reg No & password';
+    });
+  }
+
+
+
+  void conError() {
+    setState(() {
+      loading = false;
+      error = 'Failed to Log In.Please try again.';
+    });
+
+  }
+
   //global key for Register Key
   final _formKey = GlobalKey<FormState>();
   String regno = '';
   String password = '';
   bool loading = false;
   String error = '';
-  bool accepted = false;
   var username = '';
   var data;
-
+  var controller = new MaskedTextController(mask: '0000-00-00000');
   bool admin = false;
   @override
   Widget build(BuildContext context) {
@@ -90,11 +66,8 @@ class _LoginState extends State<Login> {
                 child: SingleChildScrollView(
                   child: Center(
                     child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          SizedBox(
-                            height: 70,
-                          ),
                           Container(
                               child: Image.asset(
                             'assets/picture1.png',
@@ -117,6 +90,7 @@ class _LoginState extends State<Login> {
                                   width: 300,
                                   padding: EdgeInsets.only(top: 20),
                                   child: TextFormField(
+                                    controller: controller,
                                     validator: (val) =>
                                         val!.isEmpty || val.length < 11
                                             ? 'Enter your Reg.No'
@@ -153,18 +127,12 @@ class _LoginState extends State<Login> {
                                 setState(() => loading = true);
                                 print(regno);
                                 print(password);
-                                accepted = false;
+                                login.LoginMySql(context, regno, password,
+                                    logInSuccess, notRegistered, conError);
                               } else {
-                                accepted = true;
-                              }
-
-                              if (accepted) {
                                 setState(() {
-                                  error = 'Enter correct Reg No & Password';
                                   loading = false;
                                 });
-                              } else {
-                                LoginMySql(context);
                               }
                             },
                             child: Container(

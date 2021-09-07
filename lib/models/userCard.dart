@@ -23,7 +23,7 @@ class userCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  user.Fname! + " " + user.Lname!,
+                  user.Fname + " " + user.Lname,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,

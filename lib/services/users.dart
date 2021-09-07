@@ -2,71 +2,91 @@ import 'package:http/http.dart';
 import 'dart:convert';
 
 class AppUser {
-  String? Uid;
-  String? Fname;
-  String? Lname;
-  String? Uname;
-  String? email;
+  int Uid;
+  String Fname;
+  String Lname;
+  String regNo;
+  String email;
 
   AppUser(
       {required this.Uid,
       required this.Fname,
       required this.Lname,
       required this.email,
-      required this.Uname});
+      required this.regNo});
 }
 
+Map data = {};
+
 // trying to fetch data from the API
-// getUserData() async {
-//   Response response =
-//       await get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
-//   Map data = jsonDecode(response.body);
-//   List<dynamic> userList = [];
-//   data.entries.forEach((e) => userList.add(Users(
-//       Uid: data['id'],
-//       Fname: data['name'],
-//       Lname: data['username'],
-//       email: data['email'],
-//       Uname: data['username'])));
-//   return userList;
-// }
-// List<dynamic> users = getUserData() as List;
+getUserData() async {
+  Map logInInfo = {'reg_no': '2019-08-09878', 'password': 'USER'};
+
+  try {
+    Response response = await post(
+      Uri.parse('http://45.56.115.113/registration/api/pt/checkLogin'),
+      body: logInInfo,
+    );
+    Map data = jsonDecode(response.body);
+    if (data != null) {
+      AppUser user = AppUser(
+          Uid: data['student_details']['application_id'],
+          Fname: data['student_details']['first_name'],
+          Lname: data['student_details']['last_name'],
+          email: data['student_details']['email'],
+          regNo: data['student_details']['phone_no']);
+      print(data['student_details']);
+      print(user);
+      return user;
+    } else {
+      print('Failed to fetch data');
+    }
+  } catch (e) {
+    print('Log in failed');
+    print(e);
+    return null;
+  }
+  print(data);
+}
+void printer(){
+  print(data);
+}
 
 List<AppUser> users = [
   AppUser(
-      Uid: '1',
-      Fname: 'Godson',
-      Lname: 'Ezekiel',
-      email: 'godson@y4c.com',
-      Uname: 'gezekiel'),
+      Uid: data['student_details']['application_id'],
+      Fname: data['student_details']['first_name'],
+      Lname: data['student_details']['last_name'],
+      email: data['student_details']['email'],
+      regNo: data['student_details']['phone_no']),
   AppUser(
-      Uid: '2',
-      Fname: 'Lisa',
-      Lname: 'Jocktan',
-      email: 'lisa@y4c.com',
-      Uname: 'ljocktan'),
+      Uid: data['student_details']['application_id'],
+      Fname: data['student_details']['first_name'],
+      Lname: data['student_details']['last_name'],
+      email: data['student_details']['email'],
+      regNo: data['student_details']['phone_no']),
   AppUser(
-      Uid: '3',
-      Fname: 'Tony',
-      Lname: 'Rite',
-      email: 'tony@y4c.com',
-      Uname: 'trite'),
+      Uid: data['student_details']['application_id'],
+      Fname: data['student_details']['first_name'],
+      Lname: data['student_details']['last_name'],
+      email: data['student_details']['email'],
+      regNo: data['student_details']['phone_no']),
   AppUser(
-      Uid: '4',
-      Fname: 'Eliza',
-      Lname: 'Rweikiza',
-      email: 'eliza@y4c.com',
-      Uname: 'Erweikiza'),
+      Uid: data['student_details']['application_id'],
+      Fname: data['student_details']['first_name'],
+      Lname: data['student_details']['last_name'],
+      email: data['student_details']['email'],
+      regNo: data['student_details']['phone_no']),
   AppUser(
-      Uid: '5',
-      Fname: 'Harun',
-      Lname: 'Kimaro',
-      email: 'harun@y4c.com',
-      Uname: 'Hkimaro'),
+      Uid: data['student_details']['application_id'],
+      Fname: data['student_details']['first_name'],
+      Lname: data['student_details']['last_name'],
+      email: data['student_details']['email'],
+      regNo: data['student_details']['phone_no']),
   AppUser(
-      Uid: '6',
-      Fname: 'Imani',
-      Lname: 'Majenda',
-      email: 'imani@y4c.com',
-      Uname: 'Imajenda')
+      Uid: data['student_details']['application_id'],
+      Fname: data['student_details']['first_name'],
+      Lname: data['student_details']['last_name'],
+      email: data['student_details']['email'],
+      regNo: data['student_details']['phone_no'])
 ];
