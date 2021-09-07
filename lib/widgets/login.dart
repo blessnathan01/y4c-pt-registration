@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:users_page/services/users.dart';
 import '../services/authorization.dart';
@@ -5,6 +7,8 @@ import '../widgets/loading.dart';
 import '../pages/home.dart';
 import '../pages/admin_challenges.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:http/http.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -14,13 +18,64 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  Future LoginMySql(BuildContext context) async {
+    // var url = "http://45.56.115.113/registration/api/pt/checkLogin";
+    try {
+      Response response = await post(
+          Uri.parse('http://45.56.115.113/registration/api/pt/checkLogin'),
+          body: {
+            "reg_no": regno.toString(),
+            "password": password,
+          });
+
+      data = jsonDecode(response.body);
+      print(data);
+
+      if (data['status'] == 'success') {
+        setState(() {
+          loading = false;
+          accepted = false;
+        });
+
+        username = data['student_details']['first_name'] +
+            ' ' +
+            data['student_details']['last_name'];
+
+        showSimpleNotification(
+            Text(
+              'You have successfully logged in as $username',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            background: Colors.blue[600]);
+
+        Navigator.pushReplacement(context,
+            new MaterialPageRoute(builder: (context) => userHomePage()));
+      } else {
+        setState(() {
+          accepted = true;
+          loading = false;
+          error = 'Enter correct Reg No & password';
+        });
+      }
+    } catch (e) {
+      print(e.toString());
+      setState(() {
+        loading = false;
+        error = 'Enter correct Reg No & password';
+      });
+    }
+  }
+
   final AuthService _auth = AuthService();
   //global key for Register Key
   final _formKey = GlobalKey<FormState>();
-  String email = '';
+  String regno = '';
   String password = '';
   bool loading = false;
   String error = '';
+  bool accepted = false;
+  var username = '';
+  var data;
 
   bool admin = false;
   @override
@@ -36,6 +91,9 @@ class _LoginState extends State<Login> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          SizedBox(
+                            height: 70,
+                          ),
                           Container(
                               child: Image.asset(
                             'assets/picture1.png',
@@ -58,23 +116,23 @@ class _LoginState extends State<Login> {
                                   width: 300,
                                   padding: EdgeInsets.only(top: 20),
                                   child: TextFormField(
-                                    validator: (val) => val!.isEmpty
-                                        ? 'Enter your Email'
-                                        : null,
+                                    validator: (val) =>
+                                        val!.isEmpty || val.length < 11
+                                            ? 'Enter your Reg.No'
+                                            : null,
                                     onChanged: (val) =>
-                                        setState(() => email = val),
+                                        setState(() => regno = val),
                                     decoration: InputDecoration(
                                         border: UnderlineInputBorder(),
-                                        labelText: 'Email '),
+                                        labelText: 'Registration No:'),
                                   ),
                                 ),
                                 Container(
                                   width: 300,
                                   padding: EdgeInsets.only(top: 20, bottom: 60),
                                   child: TextFormField(
-                                    validator: (val) => val!.length < 6
-                                        ? 'Password should be more than 6 characters long'
-                                        : null,
+                                    validator: (val) =>
+                                        val!.isEmpty ? '*Password' : null,
                                     onChanged: (val) =>
                                         setState(() => password = val),
                                     obscureText: true,
@@ -88,61 +146,36 @@ class _LoginState extends State<Login> {
                           ),
 
                           FlatButton(
-                              color: Colors.blue[600],
-                              onPressed: () async {
-                                dynamic api = await getUserData();
-                                print(api);
-                                if (email.trim() == 'admin@y4c.com') {
-                                  setState(() => admin = true);
-                                  Navigator.pushReplacement(
-                                      context,
-                                      new MaterialPageRoute(
-                                          builder: (context) =>
-                                              AdminChallenges()));
-                                } else {
-                                  if (_formKey.currentState!.validate()) {
-                                    setState(() => loading = true);
-                                    print(email);
-                                    print(password);
-                                    dynamic result =
-                                        await _auth.signInWithEmailAndPassword(
-                                            email.trim(), password.trim());
-                                    print(result);
-                                    if (result == null) {
-                                      setState(() {
-                                        error =
-                                            'Could not sign in. Please try again';
-                                        loading = false;
-                                      });
-                                    } else {
-                                      print('$email Signed In Successfully!');
-                                      setState(() => showSimpleNotification(
-                                          Text(
-                                            'You have successfully logged in as $email',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16),
-                                          ),
-                                          background: Colors.blue[600]));
-                                      Navigator.pushReplacement(
-                                          context,
-                                          new MaterialPageRoute(
-                                              builder: (context) =>
-                                                  userHomePage()));
-                                                  
-                                    }
-                                  }
-                                }
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 15.0, horizontal: 120),
-                                child: Text('LOG IN',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w900)),
-                              )),
+                            color: Colors.blue[600],
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                setState(() => loading = true);
+                                print(regno);
+                                print(password);
+                                accepted = false;
+                              } else {
+                                accepted = true;
+                              }
+
+                              if (accepted) {
+                                setState(() {
+                                  error = 'Enter correct Reg No & Password';
+                                  loading = false;
+                                });
+                              } else {
+                                LoginMySql(context);
+                              }
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 15.0, horizontal: 120),
+                              child: Text('LOG IN',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w900)),
+                            ),
+                          ),
                           SizedBox(
                             height: 20,
                           ),

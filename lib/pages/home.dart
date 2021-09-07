@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../services/authorization.dart';
-import '../widgets/registration.dart';
 import '../widgets/login.dart';
 import '../services/challenges.dart';
 import '../pages/userChallange.dart';
@@ -16,7 +15,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(body: Login()),
+      home: Scaffold(
+        body: Login(),
+      ),
     );
   }
 }
