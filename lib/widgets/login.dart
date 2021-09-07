@@ -51,6 +51,8 @@ class _LoginState extends State<Login> {
   var data;
   var controller = new MaskedTextController(mask: '0000-00-00000');
   bool admin = false;
+  bool _isHidden = true;
+
   @override
   Widget build(BuildContext context) {
     return loading
@@ -106,8 +108,17 @@ class _LoginState extends State<Login> {
                                         val!.isEmpty ? '*Password' : null,
                                     onChanged: (val) =>
                                         setState(() => password = val),
-                                    obscureText: true,
+                                    obscureText: _isHidden,
                                     decoration: InputDecoration(
+                                        suffix: IconButton(
+                                          icon: Icon(
+                                            Icons.visibility,
+                                            size: 20,
+                                          ),
+                                          onPressed: () => setState(() {
+                                            _isHidden = !_isHidden;
+                                          }),
+                                        ),
                                         border: UnderlineInputBorder(),
                                         labelText: 'Password: '),
                                   ),
