@@ -82,150 +82,155 @@ class _LoginState extends State<Login> {
         ? Loading()
         : SafeArea(
             child: Scaffold(
-              backgroundColor: Colors.orangeAccent[100],
+              backgroundColor: Colors.white,
               body: Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                          child: Image.asset(
-                        'assets/picture1.png',
-                        width: 150,
-                        height: 150,
-                      )),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        // padding: EdgeInsets.all(10),
-                        child: Text(
-                          'PT LOG IN',
-                          style: TextStyle(
-                              fontSize: 21, fontWeight: FontWeight.w900),
+                child: SingleChildScrollView(
+                  child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                            child: Image.asset(
+                          'assets/picture1.png',
+                          width: 150,
+                          height: 150,
+                        )),
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              Container(
-                                width: 280,
-                                // padding: EdgeInsets.only(top: 20),
-                                child: TextFormField(
-                                  controller: controller,
-                                  validator: (val) =>
-                                      val!.isEmpty || val.length < 11
-                                          ? 'Enter your Reg.No'
-                                          : null,
-                                  onChanged: (val) =>
-                                      setState(() => regno = val),
-                                  decoration: InputDecoration(
-                                      border: UnderlineInputBorder(),
-                                      labelText: 'Registration No:'),
-                                ),
-                              ),
-                              Container(
-                                width: 280,
-                                padding: EdgeInsets.only(top: 20, bottom: 10),
-                                child: TextFormField(
-                                  validator: (val) =>
-                                      val!.isEmpty ? '*Password' : null,
-                                  onChanged: (val) =>
-                                      setState(() => password = val),
-                                  obscureText: _isHidden,
-                                  decoration: InputDecoration(
-                                      suffix: IconButton(
-                                        icon: iconn,
-                                        onPressed: () => setState(() {
-                                          _isHidden = !_isHidden;
-                                          iconchooser();
-                                        }),
-                                      ),
-                                      border: UnderlineInputBorder(),
-                                      labelText: 'Password: '),
-                                ),
-                              ),
-                            ],
+                        Container(
+                          // padding: EdgeInsets.all(10),
+                          child: Text(
+                            'PT LOG IN',
+                            style: TextStyle(
+                                fontSize: 21, fontWeight: FontWeight.w900),
                           ),
                         ),
-                      ),
-
-                      Container(
-                        child: FlatButton(
-                          color: Colors.blue[600],
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              setState(() => loading = true);
-                              print(regno);
-                              print(password);
-                              login.LoginMySql(context, regno, password,
-                                  logInSuccess, notRegistered, conError);
-                            } else {
-                              setState(() {
-                                loading = false;
-                              });
-                            }
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 15.0, horizontal: 120),
-                            child: Text('LOG IN',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w900)),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 280,
+                                  // padding: EdgeInsets.only(top: 20),
+                                  child: TextFormField(
+                                    controller: controller,
+                                    validator: (val) =>
+                                        val!.isEmpty || val.length < 11
+                                            ? 'Enter your Reg.No'
+                                            : null,
+                                    onChanged: (val) =>
+                                        setState(() => regno = val),
+                                    decoration: InputDecoration(
+                                        border: UnderlineInputBorder(),
+                                        labelText: 'Registration No:'),
+                                  ),
+                                ),
+                                Container(
+                                  width: 280,
+                                  padding: EdgeInsets.only(top: 20, bottom: 10),
+                                  child: TextFormField(
+                                    validator: (val) =>
+                                        val!.isEmpty ? '*Password' : null,
+                                    onChanged: (val) =>
+                                        setState(() => password = val),
+                                    obscureText: _isHidden,
+                                    decoration: InputDecoration(
+                                        suffix: IconButton(
+                                          icon: iconn,
+                                          onPressed: () => setState(() {
+                                            _isHidden = !_isHidden;
+                                            iconchooser();
+                                          }),
+                                        ),
+                                        border: UnderlineInputBorder(),
+                                        labelText: 'Password: '),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        error,
-                        style: TextStyle(color: Colors.red, fontSize: 14),
-                      )
-                      // Container(
-                      //   padding: EdgeInsets.only(
-                      //     left: 120,
-                      //     top: 20,
-                      //   ),
-                      //   child: Row(
-                      //     children: [
-                      //       Text('Not a member?'),
-                      //       FlatButton(
-                      //         onPressed: () {},
-                      //         child: Container(
-                      //           padding: EdgeInsets.symmetric(horizontal: 0),
-                      //           child: Text(
-                      //             'Create Account',
-                      //             style: TextStyle(fontWeight: FontWeight.bold),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      // Container(
-                      //   padding: EdgeInsets.only(left: 170, top: 90),
-                      //   child: Row(
-                      //     children: [
-                      //       Icon(
-                      //         Icons.copyright_outlined,
-                      //         size: 20,
-                      //       ),
-                      //       Text(
-                      //         '2021',
-                      //         style: TextStyle(fontWeight: FontWeight.bold),
-                      //       )
-                      //     ],
-                      //   ),
-                      // )
-                    ]),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          child: FlatButton(
+                            color: Colors.blue[600],
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                setState(() => loading = true);
+                                print(regno);
+                                print(password);
+                                login.LoginMySql(context, regno, password,
+                                    logInSuccess, notRegistered, conError);
+                              } else {
+                                setState(() {
+                                  loading = false;
+                                });
+                              }
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 15.0, horizontal: 120),
+                              child: Text('LOG IN',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w900)),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          error,
+                          style: TextStyle(color: Colors.red, fontSize: 14),
+                        )
+                        // Container(
+                        //   padding: EdgeInsets.only(
+                        //     left: 120,
+                        //     top: 20,
+                        //   ),
+                        //   child: Row(
+                        //     children: [
+                        //       Text('Not a member?'),
+                        //       FlatButton(
+                        //         onPressed: () {},
+                        //         child: Container(
+                        //           padding: EdgeInsets.symmetric(horizontal: 0),
+                        //           child: Text(
+                        //             'Create Account',
+                        //             style: TextStyle(fontWeight: FontWeight.bold),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        // Container(
+                        //   padding: EdgeInsets.only(left: 170, top: 90),
+                        //   child: Row(
+                        //     children: [
+                        //       Icon(
+                        //         Icons.copyright_outlined,
+                        //         size: 20,
+                        //       ),
+                        //       Text(
+                        //         '2021',
+                        //         style: TextStyle(fontWeight: FontWeight.bold),
+                        //       )
+                        //     ],
+                        //   ),
+                        // )
+                      ]),
+                ),
               ),
             ),
           );
