@@ -17,7 +17,7 @@ class challengeCard extends StatelessWidget {
         child: Card(
           color: Colors.white,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(15, 15.0, 15, 20),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

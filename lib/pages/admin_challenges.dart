@@ -37,14 +37,18 @@ class _AdminChallengesState extends State<AdminChallenges> {
                 ),
                 Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: challenges.length,
-                        itemBuilder: (context, index) {
-                          return challengeCard(challenge: challenges[index]);
-                        })),
+                    child: Container(
+                      // height: double.maxFinite,
+                      // width: double.maxFinite,
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: challenges.length,
+                          itemBuilder: (context, index) {
+                            return challengeCard(challenge: challenges[index]);
+                          }),
+                    )),
               ],
             ),
           ),
