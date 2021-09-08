@@ -1,8 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:users_page/pages/userProfile.dart';
+import 'package:users_page/widgets/login.dart';
 import '../pages/home.dart';
-final dummy=0;
+
+final dummy = 0;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +21,7 @@ class MyApp extends StatelessWidget {
     return OverlaySupport.global(
       child: MaterialApp(
         theme: ThemeData(fontFamily: 'Raleway'),
-        home: Home(),
+        home: Login(),
         routes: {'/a': (context) => userHomePage()},
       ),
     );
