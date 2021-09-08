@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:users_page/models/challengeCard.dart';
+import 'package:users_page/pages/userProfile.dart';
 import '../services/authorization.dart';
 import '../widgets/login.dart';
 import '../services/challenges.dart';
@@ -34,89 +36,84 @@ class _userHomePageState extends State<userHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(130.0),
-          child: AppBar(
-            backgroundColor: Colors.blue[600],
-            title: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.fromLTRB(1.0, 10.0, 1.0, 0.0),
-                      child: Text(
-                        'Y4C PT',
-                        style: TextStyle(
-                            fontSize: 36.0, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    PopupMenuButton(
-                      offset: Offset(0, 40),
-                      child: Icon(
-                        Icons.account_circle_outlined,
-                        color: Colors.white,
-                        size: 40,
-                      ),
-                      itemBuilder: (BuildContext context) =>
-                          <PopupMenuEntry>[
-                        PopupMenuItem(
-                            height: 20,
-                            value: Text('List 1'),
-                            child: TextButton(
-                                onPressed: () async {
-                                  Navigator.of(context).pushReplacement(
-                                      new MaterialPageRoute(
-                                          builder: (context) => Login()));
-                                },
-                                child: Text('Log Out'))),
-                      ],
-                    )
-                  ],
-                ),
-              ],
-            ),
-            bottom: TabBar(
-              isScrollable: true,
-              indicatorColor: Colors.white,
-              indicatorWeight: 5.0,
-              indicatorPadding: EdgeInsets.all(0.0),
-              tabs: [
-                Tab(
-                    child: Text('Health',
-                        style: TextStyle(
-                            color: Colors.white, fontSize: 15.0))),
-                Tab(
-                    child: Text('Education',
-                        style: TextStyle(
-                            color: Colors.white, fontSize: 15.0))),
-                Tab(
-                    child: Text('Children',
-                        style: TextStyle(
-                            color: Colors.white, fontSize: 15.0))),
-                Tab(
-                    child: Text('Youth',
-                        style: TextStyle(
-                            color: Colors.white, fontSize: 15.0))),
-                Tab(
-                    child: Text('Women',
-                        style: TextStyle(
-                            color: Colors.white, fontSize: 15.0))),
-              ],
-            ),
-          ),
-        ),
-        body: TabBarView(
-            children: List<Widget>.generate(
-                challenges.length,
-                (index) =>
-                    new UserChallenge(Achallange: challenges[index]))));
+
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65.0), child: userAppBar()),
+      body: SingleChildScrollView(
+        child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: challenges.length,
+            itemBuilder: (context, index) {
+              return challengeCard(challenge: challenges[index]);
+            }),
+      ),
+    );
+
   }
 
   @override
   void dispose() {
     print("Disposing second route");
     super.dispose();
+  }
+}
+
+class userAppBar extends StatelessWidget {
+  const userAppBar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.blue[600],
+      title: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(1.0, 10.0, 1.0, 0.0),
+                child: Text(
+                  'Y4C PT',
+                  style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+                ),
+              ),
+              PopupMenuButton(
+                offset: Offset(0, 40),
+                child: Icon(
+                  Icons.account_circle_outlined,
+                  color: Colors.white,
+                  size: 40,
+                ),
+                itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                  PopupMenuItem(
+                      height: 20,
+                      value: Text('List 1'),
+                      child: TextButton(
+                          onPressed: () async {
+                            Navigator.of(context).push(new MaterialPageRoute(
+                                builder: (context) => userProfile()));
+                          },
+                          child: Text('Profile'))),
+                  PopupMenuItem(
+                      height: 20,
+                      value: Text('List 1'),
+                      child: TextButton(
+                          onPressed: () async {
+                            Navigator.of(context).pushReplacement(
+                                new MaterialPageRoute(
+                                    builder: (context) => Login()));
+                          },
+                          child: Text('Log Out'))),
+                ],
+              )
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
