@@ -21,14 +21,10 @@ class MyApp extends StatelessWidget {
     
     return OverlaySupport.global(
       child: MaterialApp(
-<<<<<<< HEAD
-        // debugShowCheckedModeBanner: false,
-       theme: ThemeData(fontFamily: 'Raleway'),
-        home: Home(),
-=======
+         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'Raleway'),
         home: Login(),
->>>>>>> 13a3b6521156b92eda1aee1aa43429f276f9857d
+
         routes: {'/a': (context) => userHomePage()},
       ),
     );

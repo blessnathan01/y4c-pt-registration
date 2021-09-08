@@ -8,55 +8,56 @@ class challengeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: InkWell(
-        splashColor: Colors.blueAccent,
-        onTap: () {
-          print('Clicked');
-        },
-        child: Card(
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Card(
+        margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            Row(
               children: [
-                Text(challenge.challengeName,
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                SizedBox(height: 10),
-                Text('Category: ${challenge.challengeCategory}',
-                    style: TextStyle(
-                        color: Colors.grey[500],
-                        fontSize: 14,
-                        fontWeight: FontWeight.w900)),
-                SizedBox(height: 10),
-                Text(
-                  challenge.challengeDescription,
-                  style: TextStyle(fontSize: 13, letterSpacing: .3),
+                CircleAvatar(
+                  backgroundImage: AssetImage('assets/download.jpeg'),
+                  radius: 40,
                 ),
-                SizedBox(height: 25),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                SizedBox(
+                  width: 20,
+                ),
+                Column(
                   children: [
-                    CircleAvatar(
-                        backgroundImage: AssetImage('assets/user.png'),
-                        radius: 20),
-                    SizedBox(
-                      width: 10,
+                    Text(
+                      challenge.challengeName,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
                     ),
-                    Text('Stakeholders',
-                        style: TextStyle(
-                            color: Colors.grey[500],
-                            fontSize: 16,
-                            fontWeight: FontWeight.w900))
+                    SizedBox(height: 10),
+                    Text(
+                      challenge.challengeName,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[600],
+                      ),
+                    ),
                   ],
-                )
+                ),
               ],
             ),
-          ),
-        ),
-      ),
-    );
+            SizedBox(height: 5),
+            Text(
+              challenge.challengeDescription,
+              style: TextStyle(fontSize: 16, color: Colors.grey[800]),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text('${challenges.length.toString()} Participants'),
+            TextButton(
+              onPressed: null,
+              child: Text('Join Challenge'),
+            )
+          ]),
+        ));
   }
 }
