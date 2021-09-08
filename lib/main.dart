@@ -15,9 +15,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return OverlaySupport.global(
       child: MaterialApp(
-        theme: ThemeData(fontFamily: 'Raleway'),
+        // debugShowCheckedModeBanner: false,
+       theme: ThemeData(fontFamily: 'Raleway'),
         home: Home(),
         routes: {'/a': (context) => userHomePage()},
       ),
