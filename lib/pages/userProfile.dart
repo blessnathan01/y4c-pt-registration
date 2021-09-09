@@ -15,7 +15,7 @@ class _userProfileState extends State<userProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65.0),
+        preferredSize: Size.fromHeight(50.0),
         child: userAppBar(),
       ),
       body: SingleChildScrollView(

@@ -22,7 +22,7 @@ class _AdminChallengesState extends State<AdminChallenges> {
     return Container(
       child: Scaffold(
         appBar: PreferredSize(
-            preferredSize: Size.fromHeight(60), child: TopAppBar()),
+            preferredSize: Size.fromHeight(50), child: TopAppBar()),
         drawer: TopBar(),
         body: SingleChildScrollView(
           child: Container(

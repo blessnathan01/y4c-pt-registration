@@ -18,7 +18,7 @@ class _adminUserPageState extends State<adminUserPage> {
     return Container(
       child: Scaffold(
         appBar: PreferredSize(
-            preferredSize: Size.fromHeight(60), child: TopAppBar()),
+            preferredSize: Size.fromHeight(50), child: TopAppBar()),
         drawer: TopBar(),
         body: SingleChildScrollView(
           child: Container(

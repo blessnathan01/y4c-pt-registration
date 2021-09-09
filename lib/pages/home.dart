@@ -37,7 +37,7 @@ class _userHomePageState extends State<userHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0), child: userAppBar()),
+          preferredSize: Size.fromHeight(50.0), child: userAppBar()),
       body: SingleChildScrollView(
         child: ListView.builder(
             scrollDirection: Axis.vertical,
