@@ -24,7 +24,7 @@ class TopBar extends StatelessWidget {
                 color: Colors.blueAccent,
               ),
               child: Text(
-                'Y4C PT Registration',
+                'Y4C PT',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24.0,
@@ -68,8 +68,10 @@ class TopBar extends StatelessWidget {
             ),
             leading: Icon(Icons.logout_outlined, color: Colors.blueAccent),
             onTap: () {
-              Navigator.pushReplacement(context,
-                  new MaterialPageRoute(builder: (context) => Login()));
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  new MaterialPageRoute(builder: (context) => Login()),
+                  (route) => false);
             },
           ),
         ],

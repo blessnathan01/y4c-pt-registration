@@ -37,7 +37,7 @@ class _userHomePageState extends State<userHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0), child: userAppBar()),
+          preferredSize: Size.fromHeight(50.0), child: userAppBar()),
       body: SingleChildScrollView(
         child: ListView.builder(
             scrollDirection: Axis.vertical,
@@ -81,11 +81,7 @@ class userAppBar extends StatelessWidget {
               ),
               PopupMenuButton(
                 offset: Offset(0, 40),
-                child: Icon(
-                  Icons.account_circle_outlined,
-                  color: Colors.white,
-                  size: 40,
-                ),
+                iconSize: 28,
                 itemBuilder: (BuildContext context) => <PopupMenuEntry>[
                   PopupMenuItem(
                       height: 20,
@@ -101,9 +97,10 @@ class userAppBar extends StatelessWidget {
                       value: Text('List 1'),
                       child: TextButton(
                           onPressed: () async {
-                            Navigator.of(context).pushReplacement(
+                            Navigator.of(context).pushAndRemoveUntil(
                                 new MaterialPageRoute(
-                                    builder: (context) => Login()));
+                                    builder: (context) => Login()),
+                                (route) => false);
                           },
                           child: Text('Log Out'))),
                 ],
