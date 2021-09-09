@@ -36,6 +36,7 @@ class _userHomePageState extends State<userHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(50.0), child: userAppBar()),
       body: SingleChildScrollView(
@@ -49,6 +50,7 @@ class _userHomePageState extends State<userHomePage> {
             }),
       ),
     );
+
   }
 
   @override
