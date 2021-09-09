@@ -17,13 +17,14 @@ class challengeCard extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: AssetImage('assets/download.jpeg'),
+                  backgroundImage: AssetImage('assets/user.png'),
                   radius: 40,
                 ),
                 SizedBox(
                   width: 20,
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       challenge.challengeName,
@@ -47,15 +48,29 @@ class challengeCard extends StatelessWidget {
             SizedBox(height: 5),
             Text(
               challenge.challengeDescription,
-              style: TextStyle(fontSize: 16, color: Colors.grey[800]),
+              style: TextStyle(fontSize: 14, color: Colors.grey[800]),
             ),
             SizedBox(
-              height: 8,
+              height: 10,
             ),
-            Text('${challenges.length.toString()} Participants'),
-            TextButton(
-              onPressed: null,
-              child: Text('Join Challenge'),
+            Text('${challenges.length.toString()} Participants',
+                style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[800],
+                    fontWeight: FontWeight.bold)),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              decoration: BoxDecoration(color: Colors.orange[600]),
+              child: TextButton(
+                onPressed: null,
+                child: Text('Join Challenge',
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold)),
+              ),
             )
           ]),
         ));

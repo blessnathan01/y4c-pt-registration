@@ -36,9 +36,8 @@ class _userHomePageState extends State<userHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50.0), child: userAppBar()),
+          preferredSize: Size.fromHeight(65.0), child: userAppBar()),
       body: SingleChildScrollView(
         child: ListView.builder(
             scrollDirection: Axis.vertical,
@@ -50,7 +49,6 @@ class _userHomePageState extends State<userHomePage> {
             }),
       ),
     );
-
   }
 
   @override
@@ -75,14 +73,14 @@ class userAppBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(1.0, 10.0, 1.0, 0.0),
+                padding: const EdgeInsets.all(0),
                 child: Text(
                   'Y4C PT',
                   style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
                 ),
               ),
               PopupMenuButton(
-                offset: Offset(0, 40),
+                offset: Offset(-20, 60),
                 iconSize: 28,
                 itemBuilder: (BuildContext context) => <PopupMenuEntry>[
                   PopupMenuItem(

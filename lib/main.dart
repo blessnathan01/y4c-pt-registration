@@ -7,24 +7,18 @@ import '../pages/home.dart';
 
 final dummy = 0;
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    
     return OverlaySupport.global(
       child: MaterialApp(
-         debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'Raleway'),
         home: Login(),
-
         routes: {'/a': (context) => userHomePage()},
       ),
     );
