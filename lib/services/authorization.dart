@@ -11,6 +11,7 @@ class Auth {
   var username = '';
   var data;
   Api api = Api();
+
   void LoginMySql(BuildContext context, String regNo, String password,
       Function logInSuccess, Function notRegistered, Function conError) async {
     // var url = "http://45.56.115.113/registration/api/pt/checkLogin";

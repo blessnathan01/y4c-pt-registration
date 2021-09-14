@@ -5,11 +5,13 @@ class Challenges {
   String challengeName;
   String challengeDescription;
   String image;
+  String id;
   Challenges(
       {required this.challengeCategory,
       required this.image,
       required this.challengeDescription,
-      required this.challengeName});
+      required this.challengeName,
+      required this.id});
 }
 
 String dummyDescription =
@@ -27,25 +29,30 @@ List<Challenges> challenges = [
       challengeName: 'Lack of proper nutrition',
       challengeCategory: 'Health',
       challengeDescription: dummyDescription,
-      image: 'health.jpeg'),
+      image: 'health.jpeg',
+      id: '1'),
   Challenges(
       challengeDescription: dummyDescription,
       challengeCategory: 'Education',
       challengeName: 'Poor Life Skills',
-      image: 'education.jpeg'),
+      image: 'education.jpeg',
+      id: '2'),
   Challenges(
       challengeName: "Drug Abuse",
       challengeCategory: 'Youth',
       challengeDescription: dummyDescription,
-      image: 'youth.jpeg'),
+      image: 'youth.jpeg',
+      id: '3'),
   Challenges(
       challengeDescription: dummyDescription,
       challengeCategory: 'Children',
       challengeName: 'High rate of DropOuts',
-      image: 'children.jpeg'),
+      image: 'children.jpeg',
+      id: '4'),
   Challenges(
       challengeDescription: dummyDescription,
       challengeCategory: "Women",
       challengeName: 'Pregnant women lack ANC',
-      image: 'women.jpeg')
+      image: 'women.jpeg',
+      id: '5')
 ];

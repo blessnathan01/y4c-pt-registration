@@ -9,7 +9,7 @@ class challengeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
+        margin: EdgeInsets.fromLTRB(10, 16, 10, 0),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child:
