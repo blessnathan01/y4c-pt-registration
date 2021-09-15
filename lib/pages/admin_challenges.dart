@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:users_page/models/challengesCardadmin.dart';
 import 'package:users_page/services/users.dart';
 import '../services/challenges.dart';
 import '../models/challengeCard.dart';
@@ -46,7 +47,8 @@ class _AdminChallengesState extends State<AdminChallenges> {
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: challenges.length,
                           itemBuilder: (context, index) {
-                            return challengeCard(challenge: challenges[index]);
+                            return challengeCardAdmin(
+                                challenge: challenges[index]);
                           }),
                     )),
               ],
