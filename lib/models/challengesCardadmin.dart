@@ -16,13 +16,13 @@ class challengeCardAdmin extends StatelessWidget {
               Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             Row(
               children: [
-                CircleAvatar(
-                  backgroundImage: AssetImage('assets/user.png'),
-                  radius: 40,
-                ),
-                SizedBox(
-                  width: 20,
-                ),
+                // CircleAvatar(
+                //   backgroundImage: AssetImage('assets/user.png'),
+                //   radius: 40,
+                // ),
+                // SizedBox(
+                //   width: 20,
+                // ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -61,7 +61,7 @@ class challengeCardAdmin extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-           /* Container(
+            /* Container(
               decoration: BoxDecoration(color: Colors.orange[600]),
               child: TextButton(
                 onPressed: null,
@@ -71,7 +71,6 @@ class challengeCardAdmin extends StatelessWidget {
                         color: Colors.white,
                         fontWeight: FontWeight.bold)),
               ),*/
-            
           ]),
         ));
   }

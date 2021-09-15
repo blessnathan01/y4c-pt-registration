@@ -15,9 +15,7 @@ class AdminChallenges extends StatefulWidget {
 
 class _AdminChallengesState extends State<AdminChallenges> {
   final Api api = Api();
-  void test() async {
-    await api.getChallenges();
-  }
+  void test() async {}
 
   @override
   Widget build(BuildContext context) {

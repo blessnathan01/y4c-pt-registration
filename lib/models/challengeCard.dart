@@ -16,13 +16,13 @@ class challengeCard extends StatelessWidget {
               Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             Row(
               children: [
-                CircleAvatar(
-                  backgroundImage: AssetImage('assets/user.png'),
-                  radius: 40,
-                ),
-                SizedBox(
-                  width: 20,
-                ),
+                // CircleAvatar(
+                //   backgroundImage: AssetImage('assets/user.png'),
+                //   radius: 40,
+                // ),
+                // SizedBox(
+                //   width: 20,
+                // ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

@@ -26,7 +26,8 @@ class Auth {
       data = jsonDecode(response.body);
       print(data);
       if (data['is_admin'] == 1) {
-        api.getAllUsers();
+        await api.getAllUsers();
+        await api.getChallenges();
         username = data['first_name'] + ' ' + data['last_name'];
         showSimpleNotification(
             Text(
@@ -38,6 +39,7 @@ class Auth {
             new MaterialPageRoute(builder: (context) => AdminChallenges()));
         logInSuccess();
       } else if (data['status'] == 'success') {
+        await api.getChallenges();
         username = data['student_details']['first_name'] +
             ' ' +
             data['student_details']['last_name'];
