@@ -50,7 +50,7 @@ class Api {
   Future getChallenges() async {
     //Fetch challenges
     try {
-      Response result = await post(Uri.parse(_CHALLENGES_URL));
+      Response result = await post(Uri.parse(_CHALLENGES_URL), body: adminInfo);
       Map data = jsonDecode(result.body);
       if (data['success'] == 'Success') {
         List challengeData = data['challenges'];
@@ -58,12 +58,13 @@ class Api {
         challengeData.forEach((element) {
           challenges.add(Challenges(
               challengeCategory: element['category'],
-              image: element['images'],
+              info: element['info'],
               challengeDescription: element['description'],
               challengeName: element['name'],
               id: element['id']));
         });
       }
+      print(challenges);
     } catch (e) {
       print(e.toString());
     }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:users_page/models/challengesCardadmin.dart';
+import 'package:users_page/services/ApiIntegration.dart';
 import 'package:users_page/services/users.dart';
 import '../services/challenges.dart';
 import '../models/challengeCard.dart';
@@ -13,8 +14,9 @@ class AdminChallenges extends StatefulWidget {
 }
 
 class _AdminChallengesState extends State<AdminChallenges> {
-  void test() {
-    // AppUser.getAllUsers();
+  final Api api = Api();
+  void test() async {
+    await api.getChallenges();
   }
 
   @override
