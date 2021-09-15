@@ -10,6 +10,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:http/http.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import '../services/ApiIntegration.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   Auth login = Auth();
+  Api api = Api();
 
   void logInSuccess() {
     if (mounted) {
