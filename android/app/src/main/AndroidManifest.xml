@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.y4c.users_page">
    <application
-        android:label="users_page"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Y4C"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
